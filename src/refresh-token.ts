@@ -44,7 +44,8 @@ async function checkForTokenResult(authCode: string, interval: number) {
 				throw error;
 			}
 			// Check error info, likely waiting for user or expired
-			const errorData = error.response?.data;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const errorData = error.response?.data as any;
 			if (errorData.error === 'authorization_pending') {
 				// Wait duration and try again
 				await new Promise(resolve => setTimeout(resolve, (interval + 1) * 1000));
